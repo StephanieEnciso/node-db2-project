@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
       res.json(cars);
     })
     .catch(err => {
-      res.status(500).json({ message: 'Failed to retrieve cars' });
+      res.status(500).json({ message: 'The cars could not be retrieved' });
     });
 });
 
@@ -17,17 +17,17 @@ router.get('/:id', (req, res) => {
   const { id } = req.params;
 
   db('cars').where({ id }).first()
-    .then(fruit => {
-      res.json(fruit);
+    .then(car => {
+      res.json(car);
     })
     .catch(err => {
-      res.status(500).json({ message: 'Failed to retrieve fruit' });
+      res.status(500).json({ message: 'The car could not be retrieved.' });
     });
 });
 
 router.post('/', (req, res) => {
-  const fruitData = req.body;
-  db('cars').insert(fruitData)
+  const newCar = req.body;
+  db('cars').insert(newCar)
     .then(ids => {
       return db('cars').where({ id: ids[0] })
     })
@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ message: "Failed to store data" });
+      res.status(500).json({ message: "The car could not be added." });
     });
 });
 
