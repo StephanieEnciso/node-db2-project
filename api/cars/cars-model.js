@@ -3,27 +3,18 @@ const db = require('../../data/config-db')
 module.exports = {
     find,
     findById,
-    add,
-    update,
-    remove
+    add
 }
 
 function find() {
-
+    return db('cars')
 }
 
 function findById(id) {
-    
+    return db('cars').where('car_id', id).first()
 }
 
-function add(car) {
-    
-}
-
-function update(id, car) {
-    
-}
-
-function remove(id) {
-    
+async function add(car) {
+   const [id] = await db('cars').insert(car)
+   return findById(id)
 }
